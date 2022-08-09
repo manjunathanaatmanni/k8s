@@ -1,0 +1,27 @@
+eksctl get cluster --region ap-southeast-1  ---------- veiw cluster
+
+aws eks update-kubeconfig --name <clustername> --region <region> ----------exist cluster fetch to ur machine 
+eksctl utils write-kubeconfig --cluster=<clustername>
+
+
+eksctl create nodegroup --cluster=manju-cluster --name=ManjuNodeGroup --region ap-southeast-1 ------------ create ManjuNodeGroup
+
+
+eksctl get nodegroup --cluster=manju-cluster --name=ManjuNodeGroup --output=yaml --region ap-southeast-1 ----------- view ManjuNodeGroup
+
+
+kubectl get all -A   ---------------------> get all pods list
+kubectl delete deployment  (name) ------------> delete deployment pods
+
+
+kubectl get deploy -A --------------------> get all namespace
+kubectl delete deploy deploymentname -n namespacename ------------> delete deployment pods with namespace
+
+kubectl get deployment --------------------> get deploymentname
+kubectl delete deployment (name)  ------------> delete deployment
+ 
+kubectl create ns (name) ---------------> create a namespace
+
+
+kubectl run -n prod hr-web-app --image kodekloud/webapp-color --replicas=2 -----> create
+kubectl run -n prod hr-web-app --image=kodekloud/webapp-color --dry-run=client -oyaml -----> view through yaml file
