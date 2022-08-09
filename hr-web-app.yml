@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: kodekloud-webapp-color
+  namespace: prod
+  labels:
+    app: kodekloud-webapp-color
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: "clb"
+spec:
+  externalTrafficPolicy: Local
+  ports:
+  - name: kodekloud-webapp-color
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: kodekloud-webapp-color
+  type: LoadBalancer 
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: prod
+  name: kodekloud-webapp-color
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: kodekloud-webapp-color
+  template:
+    metadata:
+      labels:
+        app: kodekloud-webapp-color
+    spec:
+      containers:
+      - name: manju-container
+        image: kodekloud/webapp-color
+        ports:
+        - containerPort: 30082
