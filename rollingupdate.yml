@@ -2,12 +2,17 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx-deployment
-  namespace: prod
+  #  namespace: prod
 spec:
   selector:
     matchLabels:
       app: nginx
-  replicas: 1
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurgen: 1
+      maxUnavailable: 0
   template:
     metadata:
       labels:
@@ -15,10 +20,13 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: nginx:1.16
+        image: nginx:1.17
         ports:
         - containerPort: 80
 
           #After deploy update 1.16 to 1.17
 #kubectl set image deployment nginx-deployment nginx=nginx:1.17 --namespace=prod --record -------------> rolling update
 # kubectl rollout history -n prod deployment nginx-deployment ------------>view history
+
+
+
